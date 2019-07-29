@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { arc } from "d3";
-import { TweenLite } from "gsap";
+import { TimelineLite } from "gsap";
 
 export default function Face() {
   const width = 400,
@@ -10,14 +10,13 @@ export default function Face() {
   const RightEyeRef = useRef(null);
 
   useEffect(() => {
-    const t = TweenLite.to(leftEyeRef.current, 1, { y: -20 });
-    const tTimer = setTimeout(() => t.reverse(), 500);
-    const l = TweenLite.to(RightEyeRef.current, 1, { y: -20 });
-    const lTimer = setTimeout(() => l.reverse(), 500);
-    return () => {
-      clearTimeout(tTimer);
-      clearTimeout(lTimer);
-    };
+    new TimelineLite()
+      .to(leftEyeRef.current, 1, { y: -20 })
+      .to(leftEyeRef.current, 1, { y: 0 });
+
+    new TimelineLite()
+      .to(RightEyeRef.current, 1, { y: -20 })
+      .to(RightEyeRef.current, 1, { y: 0 });
   }, []);
 
   return (
