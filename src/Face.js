@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { arc, select } from "d3";
+import { arc } from "d3";
+import { TweenLite } from "gsap";
 
 export default function Face() {
   const width = 400,
@@ -9,21 +10,14 @@ export default function Face() {
   const RightEyeRef = useRef(null);
 
   useEffect(() => {
-    select(leftEyeRef.current)
-      .transition()
-      .duration(1000)
-      .attr("y", height / 2 - 90)
-      .transition()
-      .duration(1000)
-      .attr("y", height / 2 - 70);
-
-    select(RightEyeRef.current)
-      .transition()
-      .duration(1000)
-      .attr("y", height / 2 - 90)
-      .transition()
-      .duration(1000)
-      .attr("y", height / 2 - 70);
+    const t = TweenLite.to(leftEyeRef.current, 1, { y: -20 });
+    const tTimer = setTimeout(() => t.reverse(), 500);
+    const l = TweenLite.to(RightEyeRef.current, 1, { y: -20 });
+    const lTimer = setTimeout(() => l.reverse(), 500);
+    return () => {
+      clearTimeout(tTimer);
+      clearTimeout(lTimer);
+    };
   }, []);
 
   return (
