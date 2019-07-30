@@ -92,7 +92,7 @@ export default function Population() {
   }, []);
 
   return (
-    <svg width={width} height={height}>
+    <svg style={{ marginBottom: "100px" }} width={width} height={height}>
       {data && <BarChart data={data} width={width} height={height} />}
     </svg>
   );
